@@ -2,8 +2,8 @@
 import discord
 import random
 
-tokenD = 'MTA1NDgzODI4NDQ0Mzk3NTc3MA.G0IxuM.Xeaxe-hgWBK9T_OBevjG1mqWzeKvFbkJxdR2Hc'
-guildD = 1054889700411854848
+tokenD = ''
+guildD = 
 intents = discord.Intents.all()
 client = discord.Client(command_prefix='!', intents=intents)
 
