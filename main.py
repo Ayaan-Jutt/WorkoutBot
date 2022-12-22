@@ -7,34 +7,10 @@ guildD =
 intents = discord.Intents.all()
 client = discord.Client(command_prefix='!', intents=intents)
 
-async def difficulty(message, workout):
-    await message.channel.send("Select a difficulty:\n"
-          "1. Easy\n"
-          "2. Medium\n"
-          "3. Hard\n"
-          "4. Randomize it")
-    if message.content == '1':
-        await message.channel.send("Do 5" + workout + ".")
-    if message.content == '2':
-        await message.channel.send("Do 10" + workout + ".")
-    if message.content == '3':
-        await message.channel.send("Do 25" + workout + ".")
-    if message.content == '4':
-        amount = str(random.randint(25, 100))
-        await message.channel.send("Do"+amount+" "+ workout +".")
-
-
-@client.event
-async def on_ready():
-    print('We have logged in as {0.user}'.format(client))
-
-
 @client.event
 async def on_message(message):
-    if message.author == client.user:
-        return
 
-    if message.content.endswith('too much'):
+    if message.content.endswith('j too much') or message.content.endswith("just too much") or message.content.endswith("too much"):
         await message.channel.send('10 push ups right now.')
     if message.content == "!workout":
         workouts = ['pushups', 'squats', 'situps', 'jumping jacks', 'high knees']
@@ -44,15 +20,26 @@ async def on_message(message):
                                    "\n3. Situps"
                                    "\n4. Jumping Jacks"
                                    "\n5. High Knees")
-        try:
-            select = int(message.content) + 1
-            if select > 5 or select < 0:
-                raise Exception
-            else:
 
-                await message.channel.send("Select a difficulty for "+workouts[select - 1]+"\n1. Easy\n2. Medium\n3. Hard\n4. Randomize it")
-        except:
-            pass
+        def check(m):
+            return (m.content == '1' or m.content == '2' or m.content == '3'or m.content == '4' or m.content == '5') and m.channel == message.channel
+        msg = await client.wait_for('message', check=check)
+        select = workouts[int(msg.content) - 1]
+
+        await message.channel.send("Select a difficulty for "+select+ "\n1. Easy\n2. Medium\n3. Hard\n4. Randomize it")
+
+        def check2(m):
+            return (m.content == '1' or m.content == '2' or m.content == '3' or m.content == '4') and m.channel == message.channel
+        msg = await client.wait_for('message', check=check2)
+        if msg.content == '1':
+            await message.channel.send("Do 5" + select + ".")
+        elif msg.content == '2':
+            await message.channel.send("Do 10" + select + ".")
+        elif msg.content == '3':
+            await message.channel.send("Do 25" + select + ".")
+        elif msg.content == '4':
+            amount = str(random.randint(25, 100))
+            await message.channel.send("Do "+amount+" "+ select +".")
 
 
 
