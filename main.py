@@ -6,12 +6,21 @@ tokenD = ''
 guildD = 
 intents = discord.Intents.all()
 client = discord.Client(command_prefix='!', intents=intents)
-
 @client.event
 async def on_message(message):
 
+    if message.content == "!motivation":
+        choices = ["Consistency is key", "You'll feel better after it"]
+        select = random.randint(0, len(choices) - 1)
+        await message.channel.send(choices[select])
+        
     if message.content.endswith('j too much') or message.content.endswith("just too much") or message.content.endswith("too much"):
         await message.channel.send('10 push ups right now.')
+    
+    if "sad" in message.content or "depressed" in message.content:
+        jim = "⣿⣿⣿⣿⠏⠌⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿\n⣿⣿⣿⣿⠀⠀⠸⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿\n⣿⣿⣿⠃⠀⣠⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿\n⣿⡿⠃⠀⢰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿\n⣿⠃⠀⠀⣾⣿⣿⣿⣿⣿⣦⠀⠈⠻⣿⣿⣿⣿\n⣿⠀⠀⠀⣿⣿⣿⠟⠉⠉⠉⢃⣤⠀⠈⢿⣿⣿\n⣿⠀⠀⠀⢸⣿⡟⠀⠀⠀⠀⢹⣿⣧⠀⠀⠙⣿\n⣿⡆⠀⠀⠈⠻⡅⠀⠀⠀⠀⣸⣿⠿⠇⠀⠀⢸\n⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠔⠛⠁⠀⠀⠀⣠⣿\n⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⣿\n⣿⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣾⣿⣿⣿⣿\n⣿⣿⡇⠀We Go Jim ⣠⣿⣿⣿⣿⣿⣿\n⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⢰⣿⣿⣿⣿⣿⣿⣿\n⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿\n⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠘⣿⣿⣿⣿⣿⣿⣿\n⣿⣿⠁⠀⠀⠀⠀⠀⠀⠀⠀⢹⣿⣿⣿⣿⣿⣿\n⣿⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⣿⣿⣿⣿⣿\n⡟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿"
+        await message.channel.send(jim)
+    
     if message.content == "!workout":
         workouts = ['pushups', 'squats', 'situps', 'jumping jacks', 'high knees']
         await message.channel.send("Select an exercise:\n"
